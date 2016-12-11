@@ -4,14 +4,15 @@
 #
 Name     : xtrans
 Version  : 1.3.5
-Release  : 6
+Release  : 7
 URL      : http://xorg.freedesktop.org/releases/individual/lib/xtrans-1.3.5.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/lib/xtrans-1.3.5.tar.gz
 Summary  : Abstract network code for X
 Group    : Development/Tools
-License  : MIT
+License  : MIT-Opengroup
 Requires: xtrans-doc
 BuildRequires : libxslt-bin
+BuildRequires : pkgconfig(xorg-macros)
 BuildRequires : xmlto
 
 %description
@@ -23,6 +24,7 @@ libX11, libICE, the X font server, and related components.
 %package dev
 Summary: dev components for the xtrans package.
 Group: Development
+Provides: xtrans-devel
 
 %description dev
 dev components for the xtrans package.
@@ -40,10 +42,15 @@ doc components for the xtrans package.
 %setup -q -n xtrans-1.3.5
 
 %build
+export LANG=C
 %configure --disable-static
-make V=1 %{?_smp_mflags}
+make V=1  %{?_smp_mflags}
 
 %check
+export LANG=C
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
@@ -62,7 +69,7 @@ rm -rf %{buildroot}
 /usr/include/X11/Xtrans/Xtranssock.c
 /usr/include/X11/Xtrans/Xtransutil.c
 /usr/include/X11/Xtrans/transport.c
-/usr/lib64/pkgconfig/*.pc
+/usr/lib64/pkgconfig/xtrans.pc
 /usr/share/aclocal/*.m4
 
 %files doc
