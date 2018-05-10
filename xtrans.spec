@@ -4,7 +4,7 @@
 #
 Name     : xtrans
 Version  : 1.3.5
-Release  : 10
+Release  : 11
 URL      : http://xorg.freedesktop.org/releases/individual/lib/xtrans-1.3.5.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/lib/xtrans-1.3.5.tar.gz
 Summary  : Abstract network code for X
