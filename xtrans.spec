@@ -6,10 +6,10 @@
 #
 Name     : xtrans
 Version  : 1.4.0
-Release  : 14
+Release  : 15
 URL      : http://xorg.freedesktop.org/releases/individual/lib/xtrans-1.4.0.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/lib/xtrans-1.4.0.tar.gz
-Source1 : http://xorg.freedesktop.org/releases/individual/lib/xtrans-1.4.0.tar.gz.sig
+Source1  : http://xorg.freedesktop.org/releases/individual/lib/xtrans-1.4.0.tar.gz.sig
 Summary  : Abstract network code for X
 Group    : Development/Tools
 License  : MIT-Opengroup
@@ -66,6 +66,7 @@ license components for the xtrans package.
 
 %prep
 %setup -q -n xtrans-1.4.0
+cd %{_builddir}/xtrans-1.4.0
 pushd ..
 cp -a xtrans-1.4.0 build32
 popd
@@ -75,14 +76,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1568878916
+export SOURCE_DATE_EPOCH=1604442213
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static
 make  %{?_smp_mflags}
@@ -101,15 +102,15 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 cd ../build32;
-make VERBOSE=1 V=1 %{?_smp_mflags} check || :
+make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1568878916
+export SOURCE_DATE_EPOCH=1604442213
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/xtrans
-cp COPYING %{buildroot}/usr/share/package-licenses/xtrans/COPYING
+cp %{_builddir}/xtrans-1.4.0/COPYING %{buildroot}/usr/share/package-licenses/xtrans/b7c6cc817dedc6e9c0aff3bb5a50cbc1e7f9548f
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -147,4 +148,4 @@ popd
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/xtrans/COPYING
+/usr/share/package-licenses/xtrans/b7c6cc817dedc6e9c0aff3bb5a50cbc1e7f9548f
